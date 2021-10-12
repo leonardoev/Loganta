@@ -10,7 +10,7 @@ using loganta.Data;
 namespace loganta.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20211005044758_InitialCreate")]
+    [Migration("20211012194648_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,7 +18,7 @@ namespace loganta.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.6")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -221,110 +221,189 @@ namespace loganta.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Aria", b =>
+            modelBuilder.Entity("loganta.Data.Entities.AreaUsuaria", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Presupuesto")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Arias");
+                    b.ToTable("AreaUsuariasT");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Budget", b =>
+            modelBuilder.Entity("loganta.Data.Entities.CuadroDeNecesidades", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("AreaUsuaria")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AriaId")
+                    b.Property<int>("Codigo")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedOn")
+                    b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("ProyectoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Responsable")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AriaId")
+                    b.HasIndex("ProyectoId");
+
+                    b.ToTable("CuadroDeNecesidadesT");
+                });
+
+            modelBuilder.Entity("loganta.Data.Entities.Presupuesto", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<decimal>("Monto")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("Periodo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProyectoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProyectoId")
                         .IsUnique();
 
-                    b.ToTable("Budgets");
+                    b.ToTable("PresupuestosT");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Project", b =>
+            modelBuilder.Entity("loganta.Data.Entities.Proyecto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AriaId")
+                    b.Property<int>("AreaUsuariaId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CodProyecto")
+                        .HasColumnType("int");
 
-                    b.Property<decimal>("Credit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("Duracion")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Entidad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("MontoModificado")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("MontoTotal")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Sector")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UnidadEjecutora")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AriaId");
+                    b.HasIndex("AreaUsuariaId");
 
-                    b.ToTable("Projects");
+                    b.ToTable("ProyectosT");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Requirement", b =>
+            modelBuilder.Entity("loganta.Data.Entities.Requerimiento", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<decimal>("Credit")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProjectId")
+                    b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("UpdatedOn")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("CodRequerimiento")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CuadroDeNecesidadesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Precio")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Prioridad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Total")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Unidad")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("CuadroDeNecesidadesId");
 
-                    b.ToTable("Requirements");
+                    b.ToTable("RequerimientosT");
+                });
+
+            modelBuilder.Entity("loganta.Data.Entities.Usuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Apellido")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("AreaUsuariaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cargo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AreaUsuariaId");
+
+                    b.ToTable("UsuariosT");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -378,49 +457,78 @@ namespace loganta.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Budget", b =>
+            modelBuilder.Entity("loganta.Data.Entities.CuadroDeNecesidades", b =>
                 {
-                    b.HasOne("loganta.Data.Entities.Aria", "Aria")
-                        .WithOne("Budget")
-                        .HasForeignKey("loganta.Data.Entities.Budget", "AriaId")
+                    b.HasOne("loganta.Data.Entities.Proyecto", "Proyecto")
+                        .WithMany("CuadroDeNecesidadess")
+                        .HasForeignKey("ProyectoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Aria");
+                    b.Navigation("Proyecto");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Project", b =>
+            modelBuilder.Entity("loganta.Data.Entities.Presupuesto", b =>
                 {
-                    b.HasOne("loganta.Data.Entities.Aria", "Aria")
-                        .WithMany("Projects")
-                        .HasForeignKey("AriaId")
+                    b.HasOne("loganta.Data.Entities.Proyecto", "Proyecto")
+                        .WithOne("Presupuesto")
+                        .HasForeignKey("loganta.Data.Entities.Presupuesto", "ProyectoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Aria");
+                    b.Navigation("Proyecto");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Requirement", b =>
+            modelBuilder.Entity("loganta.Data.Entities.Proyecto", b =>
                 {
-                    b.HasOne("loganta.Data.Entities.Project", "Project")
-                        .WithMany("Requirements")
-                        .HasForeignKey("ProjectId")
+                    b.HasOne("loganta.Data.Entities.AreaUsuaria", "AreaUsuaria")
+                        .WithMany("Proyectos")
+                        .HasForeignKey("AreaUsuariaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Project");
+                    b.Navigation("AreaUsuaria");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Aria", b =>
+            modelBuilder.Entity("loganta.Data.Entities.Requerimiento", b =>
                 {
-                    b.Navigation("Budget");
+                    b.HasOne("loganta.Data.Entities.CuadroDeNecesidades", "CuadroDeNecesidades")
+                        .WithMany("Requerimientos")
+                        .HasForeignKey("CuadroDeNecesidadesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Projects");
+                    b.Navigation("CuadroDeNecesidades");
                 });
 
-            modelBuilder.Entity("loganta.Data.Entities.Project", b =>
+            modelBuilder.Entity("loganta.Data.Entities.Usuario", b =>
                 {
-                    b.Navigation("Requirements");
+                    b.HasOne("loganta.Data.Entities.AreaUsuaria", "AreaUsuaria")
+                        .WithMany("Usuarios")
+                        .HasForeignKey("AreaUsuariaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AreaUsuaria");
+                });
+
+            modelBuilder.Entity("loganta.Data.Entities.AreaUsuaria", b =>
+                {
+                    b.Navigation("Proyectos");
+
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("loganta.Data.Entities.CuadroDeNecesidades", b =>
+                {
+                    b.Navigation("Requerimientos");
+                });
+
+            modelBuilder.Entity("loganta.Data.Entities.Proyecto", b =>
+                {
+                    b.Navigation("CuadroDeNecesidadess");
+
+                    b.Navigation("Presupuesto");
                 });
 #pragma warning restore 612, 618
         }

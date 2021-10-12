@@ -8,18 +8,18 @@ namespace loganta.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Arias",
+                name: "AreaUsuariasT",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Presupuesto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Arias", x => x.Id);
+                    table.PrimaryKey("PK_AreaUsuariasT", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,46 +62,50 @@ namespace loganta.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Budgets",
+                name: "ProyectosT",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AriaId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    CodProyecto = table.Column<int>(type: "int", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UnidadEjecutora = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Sector = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Entidad = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    MontoTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    MontoModificado = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Duracion = table.Column<int>(type: "int", nullable: false),
+                    AreaUsuariaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Budgets", x => x.Id);
+                    table.PrimaryKey("PK_ProyectosT", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Budgets_Arias_AriaId",
-                        column: x => x.AriaId,
-                        principalTable: "Arias",
+                        name: "FK_ProyectosT_AreaUsuariasT_AreaUsuariaId",
+                        column: x => x.AreaUsuariaId,
+                        principalTable: "AreaUsuariasT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Projects",
+                name: "UsuariosT",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Credit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    AriaId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Cargo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AreaUsuariaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Projects", x => x.Id);
+                    table.PrimaryKey("PK_UsuariosT", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Projects_Arias_AriaId",
-                        column: x => x.AriaId,
-                        principalTable: "Arias",
+                        name: "FK_UsuariosT_AreaUsuariasT_AreaUsuariaId",
+                        column: x => x.AreaUsuariaId,
+                        principalTable: "AreaUsuariasT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -213,24 +217,73 @@ namespace loganta.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Requirements",
+                name: "CuadroDeNecesidadesT",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Credit = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Fecha = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Responsable = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    AreaUsuaria = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    ProyectoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Requirements", x => x.Id);
+                    table.PrimaryKey("PK_CuadroDeNecesidadesT", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Requirements_Projects_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Projects",
+                        name: "FK_CuadroDeNecesidadesT_ProyectosT_ProyectoId",
+                        column: x => x.ProyectoId,
+                        principalTable: "ProyectosT",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PresupuestosT",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Monto = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Periodo = table.Column<int>(type: "int", nullable: false),
+                    ProyectoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PresupuestosT", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PresupuestosT_ProyectosT_ProyectoId",
+                        column: x => x.ProyectoId,
+                        principalTable: "ProyectosT",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RequerimientosT",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CodRequerimiento = table.Column<int>(type: "int", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Prioridad = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    Unidad = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Mes = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CuadroDeNecesidadesId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequerimientosT", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RequerimientosT_CuadroDeNecesidadesT_CuadroDeNecesidadesId",
+                        column: x => x.CuadroDeNecesidadesId,
+                        principalTable: "CuadroDeNecesidadesT",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -275,20 +328,30 @@ namespace loganta.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Budgets_AriaId",
-                table: "Budgets",
-                column: "AriaId",
+                name: "IX_CuadroDeNecesidadesT_ProyectoId",
+                table: "CuadroDeNecesidadesT",
+                column: "ProyectoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PresupuestosT_ProyectoId",
+                table: "PresupuestosT",
+                column: "ProyectoId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Projects_AriaId",
-                table: "Projects",
-                column: "AriaId");
+                name: "IX_ProyectosT_AreaUsuariaId",
+                table: "ProyectosT",
+                column: "AreaUsuariaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Requirements_ProjectId",
-                table: "Requirements",
-                column: "ProjectId");
+                name: "IX_RequerimientosT_CuadroDeNecesidadesId",
+                table: "RequerimientosT",
+                column: "CuadroDeNecesidadesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UsuariosT_AreaUsuariaId",
+                table: "UsuariosT",
+                column: "AreaUsuariaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -309,10 +372,13 @@ namespace loganta.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Budgets");
+                name: "PresupuestosT");
 
             migrationBuilder.DropTable(
-                name: "Requirements");
+                name: "RequerimientosT");
+
+            migrationBuilder.DropTable(
+                name: "UsuariosT");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -321,10 +387,13 @@ namespace loganta.Data.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "Projects");
+                name: "CuadroDeNecesidadesT");
 
             migrationBuilder.DropTable(
-                name: "Arias");
+                name: "ProyectosT");
+
+            migrationBuilder.DropTable(
+                name: "AreaUsuariasT");
         }
     }
 }
