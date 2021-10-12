@@ -18,9 +18,7 @@ namespace loganta.Data.Entities
         public int Duracion { get; set; }
         public int AreaUsuariaId { get; set; }
         public AreaUsuaria AreaUsuaria { get; set; }
-
         public List<CuadroDeNecesidades> CuadroDeNecesidadess { get; set; }
-
         public Presupuesto Presupuesto { get; set; }
     }
 }

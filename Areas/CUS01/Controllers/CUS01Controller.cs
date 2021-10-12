@@ -2,6 +2,7 @@
 using loganta.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,11 @@ namespace loganta.Areas.CUS01.Controllers
         public IActionResult RegistrarCredito()
         {
             return View();
+        }
+        public async Task<IActionResult> EvaluarCuadroDeNecesidades()
+        {
+            var applicationDbContext = _context.RequerimientosT;
+            return View(await applicationDbContext.ToListAsync());
         }
     }
 }
