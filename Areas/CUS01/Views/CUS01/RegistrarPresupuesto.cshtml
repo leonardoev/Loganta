@@ -6,14 +6,14 @@
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h2>RegistrarPresupuesto</h2>
+<h2>Registrar Presupuesto de Área</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="RegistrarPresupuesto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
+                <label asp-for="Nombre" class="control-label">Selecciona Área:</label>
                 <select asp-for="Nombre" class="form-control">
                     <option>Area 1</option>
                     <option>Area 2</option>
@@ -21,13 +21,13 @@
                 </select>
             </div>
             <div class="form-group">
-                <label asp-for="Presupuesto" class="control-label"></label>
+                <label asp-for="Presupuesto" class="control-label">Presupuesto:</label>
                 <input asp-for="Presupuesto" class="form-control" />
                 <span asp-validation-for="Presupuesto" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
                 <a href="https://localhost:44362">Cancelar</a>
+                <input type="submit" value="Registrar" class="btn btn-primary" />
             </div>
         </form>
     </div>
