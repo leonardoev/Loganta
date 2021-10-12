@@ -1,0 +1,84 @@
+﻿@model IEnumerable<loganta.Data.Entities.Requerimiento>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "EvaluarCuadroDeNecesidades";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h3>Evaluar Cuadro de Necesidades</h3>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SeleccionarArea">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Selecciona Área:</label>
+                <select  class="form-control">
+                    <option>Area 1</option>
+                    <option>Area 2</option>
+                    <option>Area 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Visualizar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Precio)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Precio)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SeleccionarPrioridad">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label  class="control-label">Selecciona Prioridad:</label>
+                <select  class="form-control">
+                    <option>Baja</option>
+                    <option>Media</option>
+                    <option>Alta</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Evaluar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

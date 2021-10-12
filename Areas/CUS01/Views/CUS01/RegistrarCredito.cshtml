@@ -1,0 +1,61 @@
+﻿@model loganta.Areas.CUS01.Models.RegistrarCredito
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "RegistrarCredito";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Registrar Crédito Presupuestal</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <h6>Registrar Crédito por Proyecto</h6>
+        <form asp-action="RegistrarCredito">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Proyecto.Descripcion" class="control-label">Selecciona Proyecto:</label>
+                <select asp-for="Proyecto.Descripcion" class="form-control">
+                    <option>Proyecto 1</option>
+                    <option>Proyecto 2</option>
+                    <option>Proyecto 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Proyecto.Presupuesto.Monto" class="control-label">Credito Presupuestal:</label>
+                <input asp-for="Proyecto.Presupuesto.Monto" class="form-control" />
+                <span asp-validation-for="Proyecto.Presupuesto.Monto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a href="https://localhost:44362">Cancelar</a>
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+            </div>
+        </form>
+        <h6>Registrar Crédito por Requerimiento</h6>
+        <form asp-action="RegistrarCredito">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Requerimiento.Descripcion" class="control-label">Selecciona Requerimiento:</label>
+                <select asp-for="Requerimiento.Descripcion" class="form-control">
+                    <option>Requerimiento 1</option>
+                    <option>Requerimiento 2</option>
+                    <option>Requerimiento 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Requerimiento.Precio" class="control-label">Crédito Presupuestal:</label>
+                <input asp-for="Requerimiento.Precio" class="form-control" />
+                <span asp-validation-for="Requerimiento.Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a href="https://localhost:44362">Cancelar</a>
+                <input type="submit" value="Registrar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
