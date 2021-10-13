@@ -8,7 +8,7 @@ namespace loganta.Data.Entities
     public class Requerimiento
     {
         public int Id { get; set; }
-        public int CodRequerimiento { get; set; }
+        public string CodRequerimiento { get; set; }
         public string Descripcion { get; set; }
         public string Prioridad { get; set; }
         public decimal Precio { get; set; }
@@ -16,7 +16,6 @@ namespace loganta.Data.Entities
         public int Cantidad { get; set; }
         public string Unidad { get; set; }
         public string Mes { get; set; }
-
         public int CuadroDeNecesidadesId { get; set; }
         public CuadroDeNecesidades CuadroDeNecesidades { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿@model loganta.Data.Entities.AreaUsuaria
+﻿@model loganta.Areas.CUS01.Models.RegistrarPresupuesto
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @{
@@ -13,15 +13,11 @@
         <form asp-action="RegistrarPresupuesto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label">Selecciona Área:</label>
-                <select asp-for="Nombre" class="form-control">
-                    <option>Area 1</option>
-                    <option>Area 2</option>
-                    <option>Area 3</option>
-                </select>
-            </div>
+                <label asp-for="Id" class="control-label"></label>
+                <select asp-for="Id" class="form-control" asp-items="ViewBag.AreasUsuarias"></select>
+            </div> 
             <div class="form-group">
-                <label asp-for="Presupuesto" class="control-label">Presupuesto:</label>
+                <label asp-for="Presupuesto" class="control-label"></label>
                 <input asp-for="Presupuesto" class="form-control" />
                 <span asp-validation-for="Presupuesto" class="text-danger"></span>
             </div>

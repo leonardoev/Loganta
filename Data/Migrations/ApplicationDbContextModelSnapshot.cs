@@ -250,8 +250,8 @@ namespace loganta.Data.Migrations
                     b.Property<string>("AreaUsuaria")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Codigo")
-                        .HasColumnType("int");
+                    b.Property<string>("Codigo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Fecha")
                         .HasColumnType("datetime2");
@@ -306,8 +306,8 @@ namespace loganta.Data.Migrations
                     b.Property<int>("AreaUsuariaId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CodProyecto")
-                        .HasColumnType("int");
+                    b.Property<string>("CodProyecto")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Descripcion")
                         .HasColumnType("nvarchar(max)");
@@ -347,8 +347,8 @@ namespace loganta.Data.Migrations
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
 
-                    b.Property<int>("CodRequerimiento")
-                        .HasColumnType("int");
+                    b.Property<string>("CodRequerimiento")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CuadroDeNecesidadesId")
                         .HasColumnType("int");
