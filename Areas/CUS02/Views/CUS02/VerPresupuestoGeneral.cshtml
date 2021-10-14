@@ -1,0 +1,45 @@
+﻿@model IEnumerable<loganta.Data.Entities.Presupuesto>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "VerPresupuestoGeneral";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Presupuesto General</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Proyecto.CodProyecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Monto)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Proyecto.CodProyecto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Monto)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<label>Presupuesto Usado:</label>
+<label>0</label>
+<label>Presupuesto Disponible:</label>
+<label>0</label>

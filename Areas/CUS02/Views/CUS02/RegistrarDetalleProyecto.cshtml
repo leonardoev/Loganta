@@ -1,0 +1,69 @@
+﻿@model IEnumerable<loganta.Data.Entities.Proyecto>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "RegistrarDetalleProyecto";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Registrar Detalle de Proyecto</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="RegistrarDetalleDeProyecto">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Elegir Área</label>
+                <select class="form-control" asp-items="ViewBag.AreasUsuarias"></select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Fecha</label>
+                <input class="form-control" type="date" />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Descripcion de Proyecto</label>
+                <input class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Añadir" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MontoTotal)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<label>Presupuesto Solicitado:</label>
+<label>0</label>
+<div class="form-group">
+    <a href="https://localhost:44362">Cancelar</a>
+    <input type="submit" value="Registrar" class="btn btn-primary" />
+</div>
