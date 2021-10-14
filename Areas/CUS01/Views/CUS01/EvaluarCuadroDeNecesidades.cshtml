@@ -1,4 +1,4 @@
-﻿@model IEnumerable<loganta.Data.Entities.Requerimiento>
+﻿@model loganta.Areas.CUS01.Models.EvaluarCuadroDeNecesidades
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, AuthoringTagHelpers
 @{
@@ -11,11 +11,11 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="SeleccionarArea">
+        <form asp-action="EvaluarCuadroDeNecesidades">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label class="control-label">Selecciona Área:</label>
-                <select  class="form-control"></select>
+                <label class="control-label"></label>
+                <select asp-for="AreaUsuariaId" class="form-control" asp-items="ViewBag.AreasUsuarias" ></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Visualizar" class="btn btn-primary" />
@@ -27,21 +27,21 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                @Html.DisplayNameFor(model => model.Requerimiento.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                @Html.DisplayNameFor(model => model.Requerimiento.Descripcion)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Cantidad)
+                @Html.DisplayNameFor(model => model.Requerimiento.Cantidad)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Precio)
+                @Html.DisplayNameFor(model => model.Requerimiento.Precio)
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Requerimientos)
         {
             <tr>
                 <td>
@@ -67,9 +67,9 @@
             <div class="form-group">
                 <label  class="control-label">Selecciona Prioridad:</label>
                 <select  class="form-control">
-                    <option>Baja</option>
-                    <option>Media</option>
-                    <option>Alta</option>
+                    <option>BAJA</option>
+                    <option>MEDIA</option>
+                    <option>ALTA</option>
                 </select>
             </div>
             <div class="form-group">

@@ -10,8 +10,8 @@ namespace loganta.Areas.CUS01.Models
     public class EvaluarCuadroDeNecesidades
     {
         [Display(Name = "Selecciona Área:")]
-        public int AreaId{ get; set; }
-        public RequerimientoModel RequerimientoModel { get; set; }
-        public List<RequerimientoModel> RequerimientoModels { get; set; }
+        public int AreaUsuariaId{ get; set; }
+        public Requerimiento Requerimiento { get; set; }
+        public List<Requerimiento> Requerimientos { get; set; }
     }
 }

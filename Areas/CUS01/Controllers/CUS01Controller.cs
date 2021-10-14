@@ -28,7 +28,7 @@ namespace loganta.Areas.CUS01.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegistrarPresupuesto(RegistrarPresupuesto registrarPresupuesto)
-        {
+        { 
             var areaUsuaria = _context.AreaUsuariasT.Find(registrarPresupuesto.Id);
             areaUsuaria.Presupuesto = registrarPresupuesto.Presupuesto;
             _context.Update(areaUsuaria);
@@ -41,6 +41,8 @@ namespace loganta.Areas.CUS01.Controllers
             ViewData["Requerimientos"] = new SelectList(_context.RequerimientosT, "Id", "CodRequerimiento");
             return View();
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegistrarCreditoProyecto(RegistrarCredito registrarCredito)
         {
             var proyecto = _context.ProyectosT.Find(registrarCredito.ProyectoId);
@@ -49,6 +51,8 @@ namespace loganta.Areas.CUS01.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(RegistrarCredito));
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> RegistrarCreditoRequerimiento(RegistrarCredito registrarCredito)
         {
             var requerimiento = _context.RequerimientosT.Find(registrarCredito.RequerimientoId);
@@ -57,10 +61,12 @@ namespace loganta.Areas.CUS01.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(RegistrarCredito));
         }
-        public async Task<IActionResult> EvaluarCuadroDeNecesidades()
+        public IActionResult EvaluarCuadroDeNecesidades(EvaluarCuadroDeNecesidades evaluarCuadroDeNecesidades)
         {
-            var applicationDbContext = _context.RequerimientosT;
-            return View(await applicationDbContext.ToListAsync());
+            evaluarCuadroDeNecesidades.Requerimientos = _context.RequerimientosT.Where(r => r.CuadroDeNecesidadesId == evaluarCuadroDeNecesidades.AreaUsuariaId).ToList();
+            ViewData["AreasUsuarias"] = new SelectList(_context.AreaUsuariasT, "Id", "Nombre");
+
+            return View(evaluarCuadroDeNecesidades);
         }
     }
 }
