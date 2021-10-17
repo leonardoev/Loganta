@@ -1,5 +1,7 @@
-﻿using loganta.Data;
+﻿using loganta.Areas.CUS02.Models;
+using loganta.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,11 +21,20 @@ namespace loganta.Areas.CUS02.Controllers
         }
         public async Task<IActionResult> VerPresupuestoGeneral()
         {
-            var presupuestos =  _context.PresupuestosT.Include(p => p.Proyecto);
-            return View(await presupuestos.ToListAsync());
+            VerPresupuestoGeneral verPresupuestoGeneral = new VerPresupuestoGeneral();
+
+            var presupuestos = await _context.PresupuestosT.Include(p => p.Proyecto).Include(a => a.Proyecto.AreaUsuaria).ToListAsync();
+            var proyectos = await _context.ProyectosT.ToListAsync();
+
+
+            verPresupuestoGeneral.Presupuestos = presupuestos;
+            verPresupuestoGeneral.Proyectos = proyectos;
+
+            return View(verPresupuestoGeneral);
         }
         public async Task<IActionResult> RegistrarDetalleProyecto()
         {
+            ViewData["AreasUsuarias"] = new SelectList(_context.AreaUsuariasT, "Id", "Nombre");
             var proyectos = _context.ProyectosT;
             return View(await proyectos.ToListAsync());
         }

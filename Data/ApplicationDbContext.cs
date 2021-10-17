@@ -15,6 +15,7 @@ namespace loganta.Data
             : base(options)
         {
         }
+       
         public DbSet<AreaUsuaria> AreaUsuariasT { get; set; }
         public DbSet<CuadroDeNecesidades> CuadroDeNecesidadesT { get; set; }
         public DbSet<Presupuesto> PresupuestosT { get; set; }
