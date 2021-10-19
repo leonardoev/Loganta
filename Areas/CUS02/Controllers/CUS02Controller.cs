@@ -1,5 +1,6 @@
 ﻿using loganta.Areas.CUS02.Models;
 using loganta.Data;
+using loganta.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -32,16 +33,30 @@ namespace loganta.Areas.CUS02.Controllers
 
             return View(verPresupuestoGeneral);
         }
-        public async Task<IActionResult> RegistrarDetalleProyecto()
+        public async Task<IActionResult> RegistrarDetalleProyecto(RegistrarDetalleProyecto registrarDetalleProyecto)
         {
+            var requerimientos = await _context.RequerimientosT
+                .Where(r => r.CuadroDeNecesidades.Fecha == registrarDetalleProyecto.Fecha 
+                && r.CuadroDeNecesidades.Proyecto.AreaUsuariaId == registrarDetalleProyecto.AreaUsuariaId
+                || r.CuadroDeNecesidades.Proyecto.Descripcion == registrarDetalleProyecto.DescripcionProyecto)
+                .ToListAsync();
             ViewData["AreasUsuarias"] = new SelectList(_context.AreaUsuariasT, "Id", "Nombre");
-            var proyectos = _context.ProyectosT;
-            return View(await proyectos.ToListAsync());
+
+            registrarDetalleProyecto.Requerimientos = requerimientos;
+            return View(registrarDetalleProyecto);
         }
-        public async Task<IActionResult> RegistrarCuadroDeNecesidades()
+        public IActionResult AnadirRequerimiento()
         {
-            var requerimientos = _context.RequerimientosT;
-            return View(await requerimientos.ToListAsync());
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AnadirRequerimiento(int id, AnadirRequerimiento anadirRequerimiento)
+        {
+            anadirRequerimiento.Requerimiento.CuadroDeNecesidadesId = id;
+            _context.RequerimientosT.Add(anadirRequerimiento.Requerimiento);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(RegistrarDetalleProyecto));
         }
         public IActionResult RegistrarCostoRequerimiento()
         {

@@ -1,4 +1,4 @@
-﻿using loganta.Areas.CUS02.Data;
+﻿
 using loganta.Data.Entities;
 using System;
 using System.Collections.Generic;

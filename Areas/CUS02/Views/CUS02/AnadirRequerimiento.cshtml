@@ -1,0 +1,42 @@
+﻿@model loganta.Areas.CUS02.Models.AnadirRequerimiento
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "AñadirRequerimiento";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Registrar Detalle de Proyecto</h2>
+
+<h4>Añadir Requerimiento</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AnadirRequerimiento">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Requerimiento.Descripcion" class="control-label"></label>
+                <input asp-for="Requerimiento.Descripcion" class="form-control" />
+                <span asp-validation-for="Requerimiento.Descripcion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Requerimiento.Cantidad" class="control-label"></label>
+                <input asp-for="Requerimiento.Cantidad" class="form-control" />
+                <span asp-validation-for="Requerimiento.Cantidad" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Requerimiento.Precio" class="control-label"></label>
+                <input asp-for="Requerimiento.Precio" class="form-control" />
+                <span asp-validation-for="Requerimiento.Precio" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Añadir" class="btn btn-primary" />
+                <a asp-action="RegistrarDetalleProyecto">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -8,9 +8,11 @@ namespace loganta.Areas.CUS02.Models
 {
     public class RegistrarDetalleProyecto
     {
-        public List<Requerimiento> Requerimientos { get; set; }
+        public int AreaUsuariaId { get; set; }
+        public DateTime Fecha { get; set; }
+        public string DescripcionProyecto { get; set; }
         public Requerimiento Requerimiento { get; set; }
-        public CuadroDeNecesidades CuadroDeNecesidades { get; set; }
+        public List<Requerimiento> Requerimientos { get; set; }
         public decimal PresupuestoSolicitado { get; set; }
     }
 }

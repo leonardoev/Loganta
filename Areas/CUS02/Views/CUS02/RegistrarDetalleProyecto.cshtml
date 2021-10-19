@@ -10,22 +10,23 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="RegistrarDetalleDeProyecto">
+        <form asp-action="RegistrarDetalleProyecto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="CuadroDeNecesidades.Proyecto.AreaUsuariaId" class="control-label">Elegir Área</label>
-                <select asp-for="CuadroDeNecesidades.Proyecto.AreaUsuariaId" class="form-control" asp-items="ViewBag.AreasUsuarias"></select>
+                <label asp-for="AreaUsuariaId" class="control-label">Elegir Área</label>
+                <select asp-for="AreaUsuariaId" class="form-control" asp-items="ViewBag.AreasUsuarias"></select>
             </div>
             <div class="form-group">
-                <label asp-for="CuadroDeNecesidades.Fecha" class="control-label">Fecha</label>
-                <input asp-for="CuadroDeNecesidades.Fecha" class="form-control" type="date" />
+                <label asp-for="Fecha" class="control-label">Fecha</label>
+                <input asp-for="Fecha" class="form-control" type="date" />
             </div>
             <div class="form-group">
-                <label asp-for="CuadroDeNecesidades.Proyecto.Descripcion" class="control-label">Descripcion de Proyecto</label>
-                <input asp-for="CuadroDeNecesidades.Proyecto.Descripcion" class="form-control" />
+                <label asp-for="DescripcionProyecto" class="control-label">Descripcion de Proyecto</label>
+                <input asp-for="DescripcionProyecto" class="form-control" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Añadir" class="btn btn-primary" />
+                <a asp-action="AnadirRequerimiento" asp-route-id="@Model.AreaUsuariaId">Añadir</a>
+                <input type="submit" value="Visualizar" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -34,18 +35,18 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Requerimiento.Id)
+                Id
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requerimiento.Descripcion)
+               Descripcion
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Requerimiento.Precio)
+              Precio
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model.CuadroDeNecesidades.Requerimientos)
+        @foreach (var item in Model.Requerimientos)
         {
             <tr>
                 <td>
@@ -64,14 +65,14 @@
 <div>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PresupuestoSolicitado)
+            Presupuesto Solicitado
         </dt>
         <dd class="col-sm-10">
-            @Model.CuadroDeNecesidades.Requerimientos.Sum(i => i.Precio)
+            @Model.Requerimientos.Sum(i => i.Precio)
         </dd>
     </dl>
 </div>
 <div class="form-group">
     <a href="https://localhost:44362">Cancelar</a>
-    <input type="submit" value="Registrar" class="btn btn-primary" />
+    <a href="https://localhost:44362">Registrar</a>
 </div>
