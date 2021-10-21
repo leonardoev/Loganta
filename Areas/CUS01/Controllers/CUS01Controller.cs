@@ -61,12 +61,25 @@ namespace loganta.Areas.CUS01.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(RegistrarCredito));
         }
+        
         public IActionResult EvaluarCuadroDeNecesidades(EvaluarCuadroDeNecesidades evaluarCuadroDeNecesidades)
         {
-            evaluarCuadroDeNecesidades.Requerimientos = _context.RequerimientosT.Where(r => r.CuadroDeNecesidadesId == evaluarCuadroDeNecesidades.AreaUsuariaId).ToList();
+            var requerimientos = _context.RequerimientosT.Where(r => r.CuadroDeNecesidadesId == evaluarCuadroDeNecesidades.AreaUsuariaId).ToList();
+            evaluarCuadroDeNecesidades.Requerimientos = requerimientos;
             ViewData["AreasUsuarias"] = new SelectList(_context.AreaUsuariasT, "Id", "Nombre");
 
             return View(evaluarCuadroDeNecesidades);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SeleccionarPrioridad(EvaluarCuadroDeNecesidades evaluarCuadroDeNecesidades)
+        {
+            var requerimientos = _context.RequerimientosT.Where(r => r.CuadroDeNecesidadesId == evaluarCuadroDeNecesidades.AreaUsuariaId).ToList();
+            requerimientos.ForEach(r => r.Prioridad = evaluarCuadroDeNecesidades.Prioridad);
+            _context.UpdateRange(requerimientos);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(EvaluarCuadroDeNecesidades));
         }
     }
 }

@@ -9,12 +9,9 @@ namespace loganta.Data.Entities
     {
         public int Id{ get; set; }
         public DateTime Fecha { get; set; }
-        public string Responsable { get; set; }
-        public string AreaUsuaria { get; set; }
         public string Tipo { get; set; }
-        public string Codigo { get; set; }
-        public int ProyectoId { get; set; }
-        public Proyecto Proyecto { get; set; }
+        public decimal TotalGeneral { get; set; }
+        public List<Proyecto> Proyectos { get; set; }
         public List<Requerimiento> Requerimientos{ get; set; }
     }
 }

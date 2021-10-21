@@ -13,5 +13,6 @@ namespace loganta.Areas.CUS01.Models
         public int AreaUsuariaId{ get; set; }
         public Requerimiento Requerimiento { get; set; }
         public List<Requerimiento> Requerimientos { get; set; }
+        public string Prioridad { get; set; }
     }
 }
