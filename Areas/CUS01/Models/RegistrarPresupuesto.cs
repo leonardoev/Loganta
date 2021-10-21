@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace loganta.Areas.CUS01.Models
 {
-    public class EvaluarCuadroDeNecesidades
+    public class RegistrarPresupuesto
     {
         [Display(Name = "Selecciona Área:")]
-        public int AreaUsuariaId{ get; set; }
-        public Requerimiento Requerimiento { get; set; }
-        public List<Requerimiento> Requerimientos { get; set; }
-        public string Prioridad { get; set; }
+        public int Id { get; set; }
+        [Display(Name = "Presupuesto:")]
+        public decimal Presupuesto { get; set; }
     }
 }

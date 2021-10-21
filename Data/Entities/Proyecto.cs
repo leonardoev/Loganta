@@ -8,7 +8,7 @@ namespace loganta.Data.Entities
     public class Proyecto
     {
         public int Id { get; set; }
-        public int CodProyecto { get; set; }
+        public string CodProyecto { get; set; }
         public string Descripcion { get; set; }
         public string UnidadEjecutora { get; set; }
         public string Sector { get; set; }

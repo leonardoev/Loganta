@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\CUS01\Data\" />
+    <Folder Include="Areas\CUS02\Data\" />
     <Folder Include="Data\Migrations\" />
   </ItemGroup>
 

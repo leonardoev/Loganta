@@ -1,4 +1,5 @@
-﻿using loganta.Data;
+﻿using loganta.Areas.CUS01.Models;
+using loganta.Data;
 using loganta.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -21,24 +22,64 @@ namespace loganta.Areas.CUS01.Controllers
         }
         public IActionResult RegistrarPresupuesto()
         {
+            ViewData["AreasUsuarias"] = new SelectList(_context.AreaUsuariasT, "Id", "Nombre");
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> RegistrarPresupuesto(AreaUsuaria areaUsuaria)
-        {
-            _context.Add(areaUsuaria);
+        public async Task<IActionResult> RegistrarPresupuesto(RegistrarPresupuesto registrarPresupuesto)
+        { 
+            var areaUsuaria = _context.AreaUsuariasT.Find(registrarPresupuesto.Id);
+            areaUsuaria.Presupuesto = registrarPresupuesto.Presupuesto;
+            _context.Update(areaUsuaria);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(RegistrarPresupuesto));
         }
         public IActionResult RegistrarCredito()
         {
+            ViewData["Proyectos"] = new SelectList(_context.ProyectosT, "Id", "CodProyecto");
+            ViewData["Requerimientos"] = new SelectList(_context.RequerimientosT, "Id", "CodRequerimiento");
             return View();
         }
-        public async Task<IActionResult> EvaluarCuadroDeNecesidades()
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegistrarCreditoProyecto(RegistrarCredito registrarCredito)
         {
-            var applicationDbContext = _context.RequerimientosT;
-            return View(await applicationDbContext.ToListAsync());
+            var proyecto = _context.ProyectosT.Find(registrarCredito.ProyectoId);
+            proyecto.MontoTotal = registrarCredito.CreditoProyecto;
+            _context.Update(proyecto);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(RegistrarCredito));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegistrarCreditoRequerimiento(RegistrarCredito registrarCredito)
+        {
+            var requerimiento = _context.RequerimientosT.Find(registrarCredito.RequerimientoId);
+            requerimiento.Total = registrarCredito.CreditoRequerimiento;
+            _context.Update(requerimiento);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(RegistrarCredito));
+        }
+        
+        public IActionResult EvaluarCuadroDeNecesidades(EvaluarCuadroDeNecesidades evaluarCuadroDeNecesidades)
+        {
+            var requerimientos = _context.RequerimientosT.Where(r => r.CuadroDeNecesidadesId == evaluarCuadroDeNecesidades.AreaUsuariaId).ToList();
+            evaluarCuadroDeNecesidades.Requerimientos = requerimientos;
+            ViewData["AreasUsuarias"] = new SelectList(_context.AreaUsuariasT, "Id", "Nombre");
+
+            return View(evaluarCuadroDeNecesidades);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SeleccionarPrioridad(EvaluarCuadroDeNecesidades evaluarCuadroDeNecesidades)
+        {
+            var requerimientos = _context.RequerimientosT.Where(r => r.CuadroDeNecesidadesId == evaluarCuadroDeNecesidades.AreaUsuariaId).ToList();
+            requerimientos.ForEach(r => r.Prioridad = evaluarCuadroDeNecesidades.Prioridad);
+            _context.UpdateRange(requerimientos);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(EvaluarCuadroDeNecesidades));
         }
     }
 }

@@ -1,0 +1,64 @@
+﻿@model loganta.Areas.CUS02.Models.VerPresupuestoGeneral
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, AuthoringTagHelpers
+@{
+    ViewData["Title"] = "VerPresupuestoGeneral";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+
+}
+
+<h2>Presupuesto General</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Presupuesto.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Presupuesto.Proyecto.CodProyecto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Presupuesto.Proyecto.AreaUsuaria.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Presupuesto.Monto)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Presupuestos)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto.CodProyecto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Proyecto.AreaUsuaria.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Monto)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PresupuestoUsado)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Presupuestos.Sum(i => i.Monto)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.PresupuestoDisponible)
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Proyectos.Sum(i => i.MontoTotal)
+        </dd>
+    </dl>
+</div>

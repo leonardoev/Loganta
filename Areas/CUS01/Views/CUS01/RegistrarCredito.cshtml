@@ -12,20 +12,16 @@
 <div class="row">
     <div class="col-md-4">
         <h6>Registrar Crédito por Proyecto</h6>
-        <form asp-action="RegistrarCredito">
+        <form asp-action="RegistrarCreditoProyecto">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Proyecto.Descripcion" class="control-label">Selecciona Proyecto:</label>
-                <select asp-for="Proyecto.Descripcion" class="form-control">
-                    <option>Proyecto 1</option>
-                    <option>Proyecto 2</option>
-                    <option>Proyecto 3</option>
-                </select>
+                <label asp-for="ProyectoId" class="control-label"></label>
+                <select asp-for="ProyectoId" class="form-control" asp-items="ViewBag.Proyectos"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Proyecto.Presupuesto.Monto" class="control-label">Credito Presupuestal:</label>
-                <input asp-for="Proyecto.Presupuesto.Monto" class="form-control" />
-                <span asp-validation-for="Proyecto.Presupuesto.Monto" class="text-danger"></span>
+                <label asp-for="CreditoProyecto" class="control-label">Credito Presupuestal:</label>
+                <input asp-for="CreditoProyecto" class="form-control" />
+                <span asp-validation-for="CreditoProyecto" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <a href="https://localhost:44362">Cancelar</a>
@@ -33,20 +29,16 @@
             </div>
         </form>
         <h6>Registrar Crédito por Requerimiento</h6>
-        <form asp-action="RegistrarCredito">
+        <form asp-action="RegistrarCreditoRequerimiento">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Requerimiento.Descripcion" class="control-label">Selecciona Requerimiento:</label>
-                <select asp-for="Requerimiento.Descripcion" class="form-control">
-                    <option>Requerimiento 1</option>
-                    <option>Requerimiento 2</option>
-                    <option>Requerimiento 3</option>
-                </select>
+                <label asp-for="RequerimientoId" class="control-label">Selecciona Requerimiento:</label>
+                <select asp-for="RequerimientoId" class="form-control" asp-items="ViewBag.Requerimientos"></select>
             </div>
             <div class="form-group">
-                <label asp-for="Requerimiento.Precio" class="control-label">Crédito Presupuestal:</label>
-                <input asp-for="Requerimiento.Precio" class="form-control" />
-                <span asp-validation-for="Requerimiento.Precio" class="text-danger"></span>
+                <label asp-for="CreditoRequerimiento" class="control-label">Crédito Presupuestal:</label>
+                <input asp-for="CreditoRequerimiento" class="form-control" />
+                <span asp-validation-for="CreditoRequerimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <a href="https://localhost:44362">Cancelar</a>

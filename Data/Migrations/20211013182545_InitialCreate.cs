@@ -67,7 +67,7 @@ namespace loganta.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CodProyecto = table.Column<int>(type: "int", nullable: false),
+                    CodProyecto = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UnidadEjecutora = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Sector = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -226,7 +226,7 @@ namespace loganta.Data.Migrations
                     Responsable = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AreaUsuaria = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Tipo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    Codigo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ProyectoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -267,7 +267,7 @@ namespace loganta.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CodRequerimiento = table.Column<int>(type: "int", nullable: false),
+                    CodRequerimiento = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Prioridad = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),

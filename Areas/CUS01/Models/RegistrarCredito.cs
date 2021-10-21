@@ -8,7 +8,9 @@ namespace loganta.Areas.CUS01.Models
 {
     public class RegistrarCredito
     {
-        public Proyecto Proyecto { get; set; }
-        public Requerimiento Requerimiento { get; set; }
+        public int ProyectoId { get; set; }
+        public decimal CreditoProyecto { get; set; }
+        public int RequerimientoId { get; set; }
+        public decimal CreditoRequerimiento { get; set; }
     }
 }
